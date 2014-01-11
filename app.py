@@ -53,6 +53,8 @@ def upload():
             name = os.listdir('temp')
             os.chdir('temp')
             print("before package")
+            #检测目录结构是否正确
+            #rolexx dj sj gj zou
             for i in name:
                 if os.path.isdir(i):
                     os.system('python packageRole.py %s %d %d %d' % (i, centerx, centery, bloodHeight))    
