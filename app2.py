@@ -41,7 +41,15 @@ def upload():
         fname = secure_filename(f.filename)
         f.save(fname)
         os.system('python handleTile.py %s' % (fname))
-        return 'successfully upload pictures!!'
+        return 'successfully upload normal tile!!'
+
+@app.route('/uploadGrass', methods=['POST'])
+def uploadGrass():
+    f = request.files["file"]
+    fname = secure_filename(f.filename)
+    f.save(fname)
+    os.system('python handleGrass.py %s' % (fname))
+    return 'successfully upload grass!!'
 
 if __name__ == '__main__':
     app.run(debug=True, port=9999, host='0.0.0.0')

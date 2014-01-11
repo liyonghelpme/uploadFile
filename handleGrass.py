@@ -11,13 +11,15 @@ dbPasswd = "badperson"
 dbName = "qishituan"
 
 TPCommand = "G:/texturepacker/bin/TexturePacker"
-if not os.path.exists('res'):
-    os.mkdir('res')
-if not os.path.exists('tres'):
-    os.mkdir('tres')
+if not os.path.exists('gres'):
+    os.mkdir('gres')
+if not os.path.exists('gtres'):
+    os.mkdir('gtres')
 
+#grass tile
+#pack as grassOne.plist
 im = Image.open(fname)
-for i in xrange(0, 39):
+for i in xrange(0, 4):
     row = i/8
     col = i%8
     nim = Image.new('RGBA', (512, 512))
@@ -26,20 +28,21 @@ for i in xrange(0, 39):
     print ox, oy
     cim = im.crop((ox, oy, ox+512, oy+512))
     nim.paste(cim, (0, 0, 512, 512))
-    nim.save('res/tile%d.png' % (i))
+    nim.save('gres/grass%d.png' % (i))
 
-cmd = TPCommand + " --smart-update --format cocos2d --data %s\\%s.plist --sheet %s\\%s.png --dither-none-nn --opt RGBA8888 --trim --scale %f %s" % ('tres', 't512', 'tres', 't512', 1, 'res')
+cmd = TPCommand + " --smart-update --format cocos2d --data %s\\%s.plist --sheet %s\\%s.png --dither-none-nn --opt RGBA8888 --trim --scale %f %s" % ('gtres', 'grassOne', 'gtres', 'grassOne', 1, 'gres')
 os.system(cmd)
-os.system('cp tres/t512.png .')
-os.system('cp tres/t512.plist .')
+#os.system('cp tres/t512.png Z:\\code')
+#os.system('cp tres/t512.plist Z:\\code')
 import zipfile
 import hashlib
 
+os.system('cp gtres/grassOne* .')
 zipFile = zipfile.ZipFile('test.zip', 'w')
-zipFile.write('t512.png')
-zipFile.write('t512.plist')
 zipFile.write('grassOne.png')
 zipFile.write('grassOne.plist')
+zipFile.write('t512.png')
+zipFile.write('t512.plist')
 zipFile.close()
 
 m = hashlib.md5()
