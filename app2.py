@@ -51,5 +51,15 @@ def uploadGrass():
     os.system('python handleGrass.py %s' % (fname))
     return 'successfully upload grass!!'
 
+@app.route('/uploadBuild', methods=['POST'])
+def uploadBuild():
+    f = request.files["file"]
+    fname = secure_filename(f.filename)
+    f.save(fname)
+    print("uploadBuild save file", fname)
+    os.system('python handleBuild.py %s' % (fname))
+    return 'successfully upload Build!!'
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=9999, host='0.0.0.0')
